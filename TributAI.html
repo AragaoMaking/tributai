@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TributAI</title>
+<style>
+:root{--bg:#f4f6fa;--sf:#fff;--tx:#0b1f3a;--mu:#5b6b82;--bd:#dfe5ee;--bt:#0b2a5b;--ac:#1d4ed8;--ok:#15803d;--er:#b91c1c;--wn:#b45309;--okb:#e8f5ec;--erb:#fdecec;--wnb:#fdf3e3;--sh:0 1px 3px rgba(11,31,58,.08);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a1220;--sf:#111c30;--tx:#e6edf7;--mu:#97a6bd;--bd:#22304a;--bt:#2563eb;--ac:#7db0ff;--ok:#4ade80;--er:#f87171;--wn:#fbbf24;--okb:#10281a;--erb:#321416;--wnb:#32250c;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0a1220;--sf:#111c30;--tx:#e6edf7;--mu:#97a6bd;--bd:#22304a;--bt:#2563eb;--ac:#7db0ff;--ok:#4ade80;--er:#f87171;--wn:#fbbf24;--okb:#10281a;--erb:#321416;--wnb:#32250c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--sf);z-index:30}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{background:#0b1f3a;color:#dbe7fb;padding:20px 12px;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto}
+.logo{padding:0 8px 18px}.logo b{font-size:22px;letter-spacing:-.5px;color:#fff}.logo i{font-style:normal;color:#7db0ff}.logo small{display:block;color:#93a8c9;font-size:11px;line-height:1.3;margin-top:4px}
+aside a{display:flex;justify-content:space-between;gap:6px;padding:8px 10px;border-radius:8px;color:#c6d4ec;text-decoration:none;font-size:14px}
+aside a:hover{background:rgba(255,255,255,.07)}aside a.on{background:rgba(255,255,255,.14);color:#fff}aside em{font-size:10px;opacity:.6;font-style:normal;align-self:center}
+.dm{margin:16px 8px 0;font-size:11px;color:#93a8c9}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:10px;padding:12px 24px;background:var(--sf);border-bottom:1px solid var(--bd)}
+header h1{font-size:17px;margin:0;flex:1}#mb{display:none}
+main{padding:24px;max-width:1100px;width:100%}
+button,.btn{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);padding:7px 13px;transition:background .15s}
+button:hover{background:var(--bg)}button.pr{background:var(--bt);border-color:var(--bt);color:#fff}button.pr:hover{filter:brightness(1.1);background:var(--bt)}button.dg{color:var(--er)}button.sm{padding:3px 9px;font-size:13px}
+input,select,textarea{font:inherit;width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--sf);color:var(--tx)}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+label{display:block;font-size:13px;color:var(--mu)}label input,label select,label textarea{margin-top:3px;color:var(--tx);font-size:15px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:var(--sh);margin-bottom:16px}
+.card h2,.card h3{margin:0 0 10px;font-size:15px}
+.k{font-size:26px;font-weight:650;letter-spacing:-.5px}.k small{font-size:12px;color:var(--mu);font-weight:400;display:block;letter-spacing:0}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--bd);font-size:14px;vertical-align:top}th{color:var(--mu);font-weight:500;font-size:12px}
+.tb{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.tb input{flex:1;min-width:160px;width:auto}.tb select{width:auto}
+.bd{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--bg);color:var(--mu);border:1px solid var(--bd)}.bd.ok{background:var(--okb);color:var(--ok)}.bd.wn{background:var(--wnb);color:var(--wn)}
+.al{padding:10px 12px;border-radius:8px;margin:10px 0;font-size:14px}.al.er{background:var(--erb);color:var(--er)}.al.wn{background:var(--wnb);color:var(--wn)}.al.ok{background:var(--okb);color:var(--ok)}
+.bar{height:8px;border-radius:4px;background:var(--bt);margin:4px 0 8px}.mu{color:var(--mu);font-size:13px}.bt{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.it{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;padding:10px;border:1px dashed var(--bd);border-radius:8px;margin-bottom:8px}
+dialog{border:1px solid var(--bd);border-radius:14px;background:var(--sf);color:var(--tx);width:min(720px,94vw);max-height:90vh;padding:20px}dialog::backdrop{background:rgba(5,12,25,.55)}
+pre{background:var(--bg);padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:50vh}
+#ts{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;z-index:40}
+.t{padding:10px 14px;border-radius:10px;background:var(--sf);border:1px solid var(--bd);box-shadow:0 6px 20px rgba(0,0,0,.15);border-left:4px solid var(--ok);max-width:320px;animation:in .2s}.t.er{border-left-color:var(--er)}.t.wn{border-left-color:var(--wn)}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+@media(max-width:820px){.app{grid-template-columns:1fr}aside{position:fixed;left:0;top:0;bottom:0;width:260px;height:auto;transform:translateX(-100%);transition:transform .2s;z-index:20}aside.open{transform:none}#mb{display:inline-block}main{padding:16px}header{padding:10px 16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside id="sd"><div class="logo"><b>Tributa<i>AI</i></b><small>Inteligência tributária. Decisões mais inteligentes.</small></div><nav id="nv"></nav><div class="dm">Modo local: os dados ficam neste navegador. Login e banco na nuvem entram na fase 2.</div></aside>
+<div><header><button id="mb" aria-label="Abrir menu">☰</button><h1 id="ti"></h1><button id="th" data-a="tema">Tema</button></header><main id="m"></main></div>
+</div>
+<div id="ts" aria-live="polite"></div><dialog id="dg"></dialog>
+<script>
+const $=s=>document.querySelector(s),K='tributai:v1';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S={clientes:[],sims:[],ativ:[],plano:'starter',tema:''},C={q:'',reg:'',st:'',pg:1};
+try{const r=localStorage.getItem(K);if(r)S={...S,...JSON.parse(r)}}catch(e){}
+const LIM={starter:10,profissional:100,escritorio:Infinity},PN={starter:'Starter',profissional:'Profissional',escritorio:'Escritório'};
+const R={simples:'Simples Nacional',presumido:'Lucro Presumido',real:'Lucro Real'},ST={ativo:'Ativo',rascunho:'Rascunho',arquivado:'Arquivado'};
+const N=[['visao','Visão geral'],['clientes','Clientes'],['simulador','Simulador tributário'],
+['comparador','Comparador de regimes','Fase 6','Simples Nacional, Lucro Presumido e Lucro Real lado a lado, com créditos e transição. Depende de regras documentadas e revisadas por um contador.'],
+['reforma','Reforma Tributária','Fase 9','Linha do tempo 2026–2033 e fundamentação legal, a partir das tabelas oficiais do motor da Receita.'],
+['relatorios','Relatórios','Fase 7','Relatórios em PDF com logo do escritório, memória de cálculo, premissas e fundamentação legal.'],
+['alertas','Alertas tributários','Fase 9','Novidades da legislação e alertas por cliente.'],
+['assistente','Assistente IA','Fase 9','Explicações sobre simulações e legislação, só com fontes oficiais e sem inventar regras.'],
+['equipe','Equipe','Fase 2','Convites, papéis (administrador, contador, analista, assistente, visualizador) e clientes por colaborador. Exige autenticação real.'],
+['assinatura','Assinatura'],['config','Configurações']];
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const fm=v=>v===''||v==null||isNaN(v)?'—':Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const dt=x=>new Date(x).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+const mk=c=>c.replace(/\D/g,'').slice(0,14).replace(/^(\d{2})(\d{3})?(\d{3})?(\d{4})?(\d{2})?.*/,(m,a,b,d,e,f)=>a+(b?'.'+b:'')+(d?'.'+d:'')+(e?'/'+e:'')+(f?'-'+f:''));
+const dv=(a,n)=>{let s=0,p=n-7;for(let i=0;i<n;i++){s+=a[i]*p--;if(p<2)p=9}const r=s%11;return r<2?0:11-r};
+const cnpjOk=c=>{c=c.replace(/\D/g,'');if(c.length!=14||/^(\d)\1+$/.test(c))return false;const a=[...c].map(Number);return dv(a,12)==a[12]&&dv(a,13)==a[13]};
+const fake=i=>{const a=[...String(10000000+i*7919)].map(Number).concat([0,0,0,1]);a.push(dv(a,12));a.push(dv(a,13));return a.join('')};
+const log=t=>{S.ativ.unshift({t,em:new Date().toISOString()});S.ativ=S.ativ.slice(0,50)};
+function save(){try{localStorage.setItem(K,JSON.stringify(S));return true}catch(e){toast('Não foi possível gravar neste navegador. Os dados valem só até fechar a página.','wn');return false}}
+function toast(m,t=''){const d=document.createElement('div');d.className='t '+t;d.textContent=m;$('#ts').append(d);setTimeout(()=>d.remove(),4200)}
+const opt=(o,v,ph='Selecione')=>`<option value="">${ph}</option>`+Object.entries(o).map(([k,l])=>`<option value="${k}"${k==v?' selected':''}>${l}</option>`).join('');
+const incompleto=c=>c.status=='rascunho'||!c.cnae||!c.fatA||!c.email;
+const V={};
+V.visao=()=>{const cs=S.clientes,at=cs.filter(c=>c.status=='ativo'),pe=cs.filter(c=>c.status!='arquivado'&&incompleto(c)),mx=Math.max(1,...Object.keys(R).map(k=>cs.filter(c=>c.regime==k).length));
+const kp=(l,v,s='')=>`<div class="card k">${v}<small>${l}${s?' · '+s:''}</small></div>`;
+return `<div class="g">${kp('Clientes',cs.length)}${kp('Clientes ativos',at.length)}${kp('Simulações salvas',S.sims.length)}${kp('Empresas com pendências',pe.length)}${kp('Impostos estimados','—','motor da Receita ainda não conectado')}${kp('Relatórios gerados',0,'PDF na fase 7')}</div>
+<div class="g"><div class="card"><h2>Regimes tributários</h2>${cs.length?Object.entries(R).map(([k,l])=>{const n=cs.filter(c=>c.regime==k).length;return `<div>${l} <span class="mu">${n}</span></div><div class="bar" style="width:${n/mx*100}%"></div>`}).join(''):'<p class="mu">Sem dados cadastrados.</p>'}</div>
+<div class="card"><h2>Ações rápidas</h2><div class="bt" style="justify-content:flex-start"><button class="pr" data-a="novo">Cadastrar cliente</button><a class="btn" href="#simulador" style="text-decoration:none;display:inline-block">Nova simulação</a></div></div></div>
+<div class="g"><div class="card"><h2>Empresas que precisam de atenção</h2>${pe.length?pe.slice(0,6).map(c=>`<div>${esc(c.razao)} <span class="bd wn">${c.status=='rascunho'?'rascunho':'cadastro incompleto'}</span></div>`).join(''):'<p class="mu">Nenhuma pendência no momento.</p>'}${S.sims.some(s=>s.status=='pendente_motor')?`<div class="al wn">${S.sims.filter(s=>s.status=='pendente_motor').length} simulação(ões) aguardando o cálculo oficial.</div>`:''}</div>
+<div class="card"><h2>Atividades recentes</h2>${S.ativ.length?S.ativ.slice(0,7).map(a=>`<div>${esc(a.t)} <span class="mu">${dt(a.em)}</span></div>`).join(''):'<p class="mu">Nenhuma atividade ainda.</p>'}</div></div>`};
+V.clientes=()=>`<div class="tb"><input id="q" placeholder="Buscar por nome ou CNPJ" value="${esc(C.q)}"><select id="fr">${opt(R,C.reg,'Todos os regimes')}</select><select id="fs">${opt(ST,C.st,'Todos os status')}</select><button class="pr" data-a="novo">Novo cliente</button></div><div id="lst"></div>`;
+function lista(){const dq=C.q.replace(/\D/g,''),f=S.clientes.filter(c=>(!C.reg||c.regime==C.reg)&&(!C.st||c.status==C.st)&&(!C.q||(c.razao+' '+(c.fantasia||'')).toLowerCase().includes(C.q.toLowerCase())||(dq&&c.cnpj.includes(dq)))),np=Math.max(1,Math.ceil(f.length/8));C.pg=Math.min(C.pg,np);
+const el=$('#lst');if(!el)return;
+if(!S.clientes.length){el.innerHTML='<div class="card"><h3>Nenhum cliente cadastrado ainda</h3><p class="mu">Cadastre o primeiro cliente ou carregue dados de demonstração (claramente fictícios).</p><button class="pr" data-a="novo">Cadastrar cliente</button> <button data-a="demo">Carregar demonstração</button></div>';return}
+if(!f.length){el.innerHTML='<div class="card mu">Nenhum resultado para esses filtros.</div>';return}
+el.innerHTML=`<div class="card tw"><table><tr><th>Empresa</th><th>Regime</th><th>UF</th><th>Fat. anual</th><th>Status</th><th></th></tr>${f.slice((C.pg-1)*8,C.pg*8).map(c=>`<tr><td><b>${esc(c.razao)}</b>${c.demo?' <span class="bd wn">DEMO</span>':''}<div class="mu">${mk(c.cnpj)}</div></td><td>${R[c.regime]||'—'}</td><td>${esc(c.uf)||'—'}</td><td>${fm(c.fatA)}</td><td><span class="bd ${c.status=='ativo'?'ok':''}">${ST[c.status]}</span></td><td style="white-space:nowrap"><button class="sm" data-a="edit" data-id="${c.id}">Editar</button> <button class="sm" data-a="arq" data-id="${c.id}">${c.status=='arquivado'?'Reativar':'Arquivar'}</button> <button class="sm dg" data-a="del" data-id="${c.id}">Excluir</button></td></tr>`).join('')}</table><div class="bt" style="justify-content:space-between"><span class="mu">${f.length} cliente(s)</span><span><button class="sm" data-a="pg" data-d="-1"${C.pg<2?' disabled':''}>Anterior</button> ${C.pg}/${np} <button class="sm" data-a="pg" data-d="1"${C.pg>=np?' disabled':''}>Próxima</button></span></div></div>`}
+function fc(c={}){const f=(n,l,t='text',x='')=>`<label>${l}<input name="${n}" type="${t}" value="${esc(n=='cnpj'&&c.cnpj?mk(c.cnpj):c[n])}" ${x}></label>`;
+return `<form id="cf" data-id="${c.id||''}"><h3>${c.id?'Editar cliente':'Novo cliente'}</h3><div class="g">${f('cnpj','CNPJ','text','inputmode="numeric" placeholder="00.000.000/0000-00"')}${f('razao','Razão social')}${f('fantasia','Nome fantasia')}<label>Regime tributário<select name="regime">${opt(R,c.regime)}</select></label>${f('cnae','CNAE principal','text','inputmode="numeric" placeholder="0000-0/00"')}${f('uf','UF','text','maxlength="2"')}${f('municipio','Município')}${f('fatM','Faturamento mensal (R$)','number','step="0.01" min="0"')}${f('fatA','Faturamento anual (R$)','number','step="0.01" min="0"')}${f('resp','Responsável')}${f('email','E-mail','email')}${f('tel','Telefone','tel')}<label>Status<select name="status">${opt(ST,c.status||'ativo','')}</select></label></div><label>Observações internas<textarea name="obs" rows="2">${esc(c.obs)}</textarea></label><div id="er"></div><div class="bt"><button type="button" data-a="fechar">Cancelar</button><button value="rascunho">Salvar rascunho</button><button class="pr" value="salvar">Salvar cliente</button></div></form>`}
+function sc(f,mode){const d=Object.fromEntries(new FormData(f)),draft=mode=='rascunho',id=f.dataset.id,e=[];d.cnpj=d.cnpj.replace(/\D/g,'');d.uf=d.uf.trim().toUpperCase();
+if(!d.razao.trim())e.push('Informe a razão social.');
+if(d.cnpj&&S.clientes.some(c=>c.cnpj==d.cnpj&&c.id!=id))e.push('Já existe um cliente com este CNPJ.');
+if(!draft){if(!cnpjOk(d.cnpj))e.push('O CNPJ informado é inválido. Confira os 14 dígitos.');if(!d.regime)e.push('Selecione o regime tributário.');if(d.cnae.replace(/\D/g,'').length!=7)e.push('O CNAE principal deve ter 7 dígitos.');if(d.uf.length!=2)e.push('Informe a UF com duas letras.');if(d.email&&!/^\S+@\S+\.\S+$/.test(d.email))e.push('O e-mail parece incompleto.')}
+if(!id&&S.clientes.length>=LIM[S.plano])e.push(`O plano ${PN[S.plano]} permite até ${LIM[S.plano]} clientes. Mude o plano em Assinatura.`);
+if(e.length){$('#er').innerHTML='<div class="al er" role="alert">'+e.map(esc).join('<br>')+'</div>';return}
+const now=new Date().toISOString(),r={...(S.clientes.find(c=>c.id==id)||{id:uid(),criado:now}),...d,status:draft?'rascunho':(d.status||'ativo'),atual:now};
+S.clientes=id?S.clientes.map(c=>c.id==id?r:c):[r,...S.clientes];log((id?'Cliente atualizado: ':'Cliente cadastrado: ')+r.razao);save();$('#dg').close();go();
+toast(id?'Informações atualizadas.':draft?'Rascunho salvo.':'Cliente cadastrado com sucesso.')}
+V.simulador=()=>{const cs=S.clientes.filter(c=>c.status!='arquivado');
+if(!cs.length)return '<div class="card"><h3>Sem clientes para simular</h3><p class="mu">Cadastre um cliente primeiro.</p><button class="pr" data-a="novo">Cadastrar cliente</button></div>';
+return `<div class="al wn"><b>Cálculo oficial ainda não conectado.</b> Este simulador monta a operação no formato do motor da Receita (<code>POST /api/calculadora/regime-geral</code>) e salva a simulação como pendente. Nenhum valor de imposto é estimado aqui.</div>
+<form id="sf" class="card"><div class="g"><label>Cliente<select name="cid">${cs.map(c=>`<option value="${c.id}">${esc(c.razao)}</option>`).join('')}</select></label><label>Período<select name="ano">${[2026,2027,2028,2029,2030,2031,2032,2033].map(a=>`<option>${a}</option>`).join('')}</select></label><label>Data do fato gerador<input type="date" name="data"></label><label>UF<input name="uf" maxlength="2"></label><label>Município (código IBGE)<input name="mun" inputmode="numeric" maxlength="7"></label></div>
+<h3>Itens da operação</h3><div id="its"></div><button type="button" data-a="add">Adicionar item</button>
+<label style="margin-top:12px">Observações<textarea name="obs" rows="2"></textarea></label><div id="er"></div><div class="bt"><button type="button" data-a="prev">Ver payload</button><button class="pr">Salvar simulação</button></div></form><div id="rs"></div>
+<div class="card tw"><h2>Histórico de simulações</h2>${S.sims.length?`<table><tr><th>Data</th><th>Cliente</th><th>Período</th><th>Status</th><th></th></tr>${S.sims.map(s=>`<tr><td>${dt(s.em)}</td><td>${esc(s.nome)}</td><td>${s.ano}</td><td><span class="bd wn">Pendente do motor</span></td><td><button class="sm" data-a="ver" data-id="${s.id}">Ver payload</button></td></tr>`).join('')}</table>`:'<p class="mu">Nenhuma simulação salva.</p>'}</div>`};
+const row=()=>`<div class="it"><label>NCM/NBS<input name="nc" inputmode="numeric" placeholder="8 ou 9 dígitos"></label><label>CST<input name="cst" maxlength="3"></label><label>cClassTrib<input name="cc" maxlength="6"></label><label>Base (R$)<input name="bc" inputmode="decimal"></label><label>CBS %<input name="cbs" inputmode="decimal"></label><label>IBS UF %<input name="ie" inputmode="decimal"></label><label>IBS Mun. %<input name="im" inputmode="decimal"></label><button type="button" class="sm dg" data-a="rm" style="align-self:end">Remover</button></div>`;
+function pl(){const q=n=>$('#sf [name='+n+']').value.trim(),num=x=>x===''?undefined:Number(x.replace(',','.')),pend=[];
+const itens=[...document.querySelectorAll('.it')].map((r,i)=>{const v=n=>r.querySelector('[name='+n+']').value.trim(),nc=v('nc').replace(/\D/g,''),o={numero:i+1};
+if(nc.length==9)o.nbs=nc;else if(nc.length==8)o.ncm=nc;else pend.push(`Item ${i+1}: informe NCM (8 dígitos) ou NBS (9 dígitos).`);
+o.cst=v('cst');o.cClassTrib=v('cc');o.baseCalculo=num(v('bc'));o.aliquotasNominais={cbs:num(v('cbs')),ibsEstadual:num(v('ie')),ibsMunicipal:num(v('im'))};
+if(!o.cst||!o.cClassTrib)pend.push(`Item ${i+1}: CST e cClassTrib são necessários.`);if(!(o.baseCalculo>0))pend.push(`Item ${i+1}: informe a base de cálculo.`);
+if(o.aliquotasNominais.cbs==null||o.aliquotasNominais.ibsEstadual==null||o.aliquotasNominais.ibsMunicipal==null)pend.push(`Item ${i+1}: alíquotas nominais ausentes (consulte /dados-abertos/aliquota-uniao, -uf e -municipio no motor).`);return o});
+return {p:{id:uid(),versao:'1.0.0',dhFatoGerador:q('data')?q('data')+'T00:00:00-03:00':'',municipio:Number(q('mun'))||undefined,uf:q('uf').toUpperCase(),itens},pend}}
+function ss(f){const c=S.clientes.find(x=>x.id==f.cid.value),{p,pend}=pl(),ano=Number(f.ano.value),e=[];
+if(!c)e.push('Selecione um cliente.');if(!p.dhFatoGerador)e.push('Informe a data do fato gerador.');else if(!p.dhFatoGerador.startsWith(ano))e.push(`A data do fato gerador precisa estar em ${ano}.`);
+if(p.uf.length!=2)e.push('Informe a UF.');if(!p.municipio)e.push('Informe o código IBGE do município (7 dígitos).');
+if(e.length){$('#er').innerHTML='<div class="al er" role="alert">'+e.map(esc).join('<br>')+'</div>';return}
+const s={id:uid(),cid:c.id,nome:c.razao,ano,entrada:p,pend,obs:f.obs.value,status:'pendente_motor',motor:null,em:new Date().toISOString()};
+S.sims.unshift(s);log(`Simulação ${ano} salva para ${c.razao}`);save();go();
+const ul=[c.regime=='simples'?'Este cliente está no Simples Nacional. O cálculo nesse regime usa o motor separado calculadora-rtc-simples-nacional, ainda não conectado.':'CBS, IBS e Imposto Seletivo serão calculados pelo motor oficial do regime geral, ainda não conectado.','ICMS, ISS, PIS, COFINS e IPI (sistema atual) dependem de regras documentadas e revisadas por um contador. Pendente.',...pend];
+$('#rs').innerHTML=`<div class="card"><h2>O que muda para esta empresa?</h2><div class="al ok">Simulação salva. Resultado: pendente de cálculo oficial.</div><ul>${ul.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;toast('Simulação salva. O cálculo oficial ainda está pendente.','wn')}
+V.assinatura=()=>`<div class="card"><h2>Plano atual: ${PN[S.plano]}</h2><p>Uso: ${S.clientes.length} de ${LIM[S.plano]==Infinity?'limite configurável':LIM[S.plano]} clientes.</p><div class="g">${Object.keys(PN).map(k=>`<button data-a="plano" data-id="${k}" class="${k==S.plano?'pr':''}">${PN[k]} · ${LIM[k]==Infinity?'configurável':'até '+LIM[k]}</button>`).join('')}</div><div class="al wn">Troca de plano apenas local, para teste. Cobrança, período de teste e gateway de pagamento entram na fase 10.</div></div>`;
+V.config=()=>`<div class="card"><h2>Aparência</h2><button data-a="tema">Alternar tema (${S.tema=='dark'?'escuro':S.tema=='light'?'claro':'automático'})</button></div><div class="card"><h2>Dados</h2><div class="bt" style="justify-content:flex-start"><button data-a="demo">Carregar clientes de demonstração</button><button class="dg" data-a="limpar">Apagar todos os dados</button></div><p class="mu">Os dados ficam só neste navegador.</p></div>`;
+const plan=n=>`<div class="card"><span class="bd wn">Planejado · ${n[2]}</span><h2 style="margin-top:10px">${n[1]}</h2><p>${n[3]}</p><p class="mu">Ainda não implementado nesta versão.</p></div>`;
+function go(){const id=(location.hash||'#visao').slice(1),n=N.find(x=>x[0]==id)||N[0];$('#ti').textContent=n[1];$('#m').innerHTML=(V[n[0]]||plan)(n);
+$('#nv').innerHTML=N.map(x=>`<a href="#${x[0]}" class="${x[0]==n[0]?'on':''}">${x[1]}${V[x[0]]?'':'<em>em breve</em>'}</a>`).join('');$('#sd').classList.remove('open');
+if(n[0]=='clientes')lista();if(n[0]=='simulador'&&$('#its'))$('#its').innerHTML=row()}
+function tema(){S.tema=S.tema==''?'dark':S.tema=='dark'?'light':'';document.documentElement.dataset.theme=S.tema;if(!S.tema)delete document.documentElement.dataset.theme;save()}
+function dlg(h){$('#dg').innerHTML=h;$('#dg').showModal()}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=b.dataset.id,c=S.clientes.find(x=>x.id==id);
+if(a=='novo')dlg(fc());else if(a=='edit')dlg(fc(c));else if(a=='fechar')$('#dg').close();
+else if(a=='arq'){c.status=c.status=='arquivado'?'ativo':'arquivado';log((c.status=='arquivado'?'Cliente arquivado: ':'Cliente reativado: ')+c.razao);save();lista();toast('Status atualizado.')}
+else if(a=='del'){if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmar exclusão';setTimeout(()=>{b.dataset.c='';b.textContent='Excluir'},4000)}else{S.clientes=S.clientes.filter(x=>x.id!=id);log('Cliente excluído: '+c.razao);save();lista();toast('Cliente excluído.')}}
+else if(a=='pg'){C.pg+=Number(b.dataset.d);lista()}
+else if(a=='add')$('#its').insertAdjacentHTML('beforeend',row());else if(a=='rm'){if(document.querySelectorAll('.it').length>1)b.closest('.it').remove()}
+else if(a=='prev'){const r=pl();dlg(`<h3>Payload para o motor da Receita</h3><pre>${esc(JSON.stringify(r.p,null,2))}</pre>${r.pend.length?'<div class="al wn">'+r.pend.map(esc).join('<br>')+'</div>':''}<div class="bt"><button data-a="fechar">Fechar</button></div>`)}
+else if(a=='ver'){const s=S.sims.find(x=>x.id==id);dlg(`<h3>Simulação ${s.ano} · ${esc(s.nome)}</h3><p class="mu">Motor: nenhum (pendente). Salva em ${dt(s.em)}.</p><pre>${esc(JSON.stringify(s.entrada,null,2))}</pre><div class="bt"><button data-a="fechar">Fechar</button></div>`)}
+else if(a=='plano'){S.plano=id;save();go();toast('Plano alterado (teste local).')}
+else if(a=='tema'){tema();if(location.hash=='#config')go()}
+else if(a=='demo'){const n=[['Comércio Demo Alfa','simples','4711302'],['Indústria Demo Beta','real','1091101'],['Serviços Demo Gama','presumido','6201501'],['Demo Delta (incompleto)','','']];
+n.forEach((x,i)=>{if(S.clientes.length<LIM[S.plano])S.clientes.push({id:uid(),demo:true,cnpj:fake(i+1),razao:x[0]+' (FICTÍCIA)',regime:x[1],cnae:x[2],uf:'SP',municipio:'São Paulo',fatA:x[2]?(i+1)*600000:'',email:x[2]?'demo@exemplo.invalid':'',status:'ativo',criado:new Date().toISOString()})});log('Dados de demonstração carregados');save();go();toast('Dados fictícios carregados. Todos marcados como DEMO.','wn')}
+else if(a=='limpar'){if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmar: apagar tudo';setTimeout(()=>{b.dataset.c='';b.textContent='Apagar todos os dados'},4000)}else{S={...S,clientes:[],sims:[],ativ:[]};save();go();toast('Todos os dados foram apagados.')}}});
+document.addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(f.id=='cf')sc(f,e.submitter?e.submitter.value:'salvar');if(f.id=='sf')ss(f)});
+document.addEventListener('input',e=>{const t=e.target;if(t.name=='cnpj')t.value=mk(t.value);if(t.id=='q'){C.q=t.value;C.pg=1;lista()}});
+document.addEventListener('change',e=>{if(e.target.id=='fr'){C.reg=e.target.value;C.pg=1;lista()}if(e.target.id=='fs'){C.st=e.target.value;C.pg=1;lista()}});
+$('#mb').onclick=()=>$('#sd').classList.toggle('open');addEventListener('hashchange',go);
+if(S.tema)document.documentElement.dataset.theme=S.tema;go();
+</script>
+</body>
+</html>

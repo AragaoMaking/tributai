@@ -1,0 +1,39 @@
+# Environment files and credentials
+.env*
+!.env.example
+*.pem
+*.key
+
+# Dependencies and build output
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.next/
+out/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local Supabase state and secrets
+supabase/.temp/
+supabase/.branches/
+supabase/.runtime/
+supabase/.env
+
+# Local tool state
+.vercel/
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Bundled runtimes and downloaded archives
+/oracleJdk-27/
+/VS.zip

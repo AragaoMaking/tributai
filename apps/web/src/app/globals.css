@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --foreground: #10213f;
+  --muted: #687791;
+  --border: #dfe6ef;
+  --navy: #0b1f3a;
+  --navy-soft: #132d50;
+  --blue: #2864d8;
+  --blue-soft: #edf4ff;
+  --green: #168363;
+  --green-soft: #eaf7f2;
+  --amber: #ad7319;
+  --amber-soft: #fff7df;
+  --red: #b84949;
+  --red-soft: #fff0f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root.dark {
+  --background: #0a1220;
+  --surface: #111c30;
+  --surface-soft: #16243a;
+  --foreground: #edf3fb;
+  --muted: #9ba8bd;
+  --border: #263650;
+  --navy: #07111f;
+  --navy-soft: #10233f;
+  --blue: #77a8ff;
+  --blue-soft: #172b4d;
+  --green: #66d4ad;
+  --green-soft: #16362d;
+  --amber: #efc66a;
+  --amber-soft: #392f1a;
+  --red: #ef9a9a;
+  --red-soft: #402528;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: #2864d8;
+  color: white;
+}
+
+.scrollbar-subtle {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.scrollbar-subtle::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-subtle::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.card-shell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(15, 35, 70, 0.035);
+}
+
+.interactive-card {
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--blue) 35%, var(--border));
+  box-shadow: 0 12px 28px rgba(15, 35, 70, 0.08);
+}
+
+.fade-in {
+  animation: fade-in 240ms ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

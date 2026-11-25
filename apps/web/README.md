@@ -52,6 +52,30 @@ Use somente a chave pública `publishable`/`anon` no navegador. Nunca configure
 `service_role`, `secret key`, `JWT_SECRET` ou senha do banco como variável
 `NEXT_PUBLIC_*`.
 
+### Atendimento com IA
+
+O chat de atendimento aparece no site público e na área logada. Para ativar as
+respostas, configure `GEMINI_API_KEY` como variável de ambiente **Production**
+na Vercel. A chave deve ser criada no Google AI Studio e mantida como segredo
+do servidor; não use o prefixo `NEXT_PUBLIC_`. Opcionalmente, configure
+`NEXT_PUBLIC_SUPPORT_EMAIL` para mudar o endereço público de atendimento
+humano.
+
+O chat não lê nem salva dados da conta, e recusa mensagens com e-mail, CPF ou
+CNPJ. As mensagens enviadas são processadas pelo Google Gemini; não inclua
+informações pessoais ou de clientes. O pedido usa `store: false`, mas a
+utilização gratuita do Gemini pode estar sujeita a termos de tratamento de
+dados diferentes do plano pago. Confira os termos e limites atuais do Google
+antes de receber conversas reais. A integração pesquisa fontes públicas e
+mostra apenas citações de domínios oficiais permitidos; ainda assim, confirme
+informações tributárias com um profissional. O agente não substitui cálculo
+fiscal nem parecer contábil.
+
+A API limita o tamanho e a frequência de mensagens por instância; essa proteção
+em memória não é um limite global garantido em funções serverless. Configure
+limites de uso no Google AI Studio e monitore o consumo antes de divulgar o
+chat amplamente.
+
 Antes de liberar o cadastro público:
 
 1. Crie um projeto Supabase hospedado e confira o projeto vinculado antes de

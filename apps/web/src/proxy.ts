@@ -8,6 +8,7 @@ const publicPaths = new Set([
   "/recuperar-senha",
   "/redefinir-senha",
   "/auth/callback",
+  "/api/assistente",
   "/robots.txt",
   "/sitemap.xml",
 ]);

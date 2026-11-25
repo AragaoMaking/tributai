@@ -20,6 +20,13 @@ coverage/
 *.tsbuildinfo
 next-env.d.ts
 
+# Testing and debug
+/coverage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
 # Local Supabase state and secrets
 supabase/.temp/
 supabase/.branches/
@@ -29,10 +36,6 @@ supabase/.env
 # Local tool state
 .vercel/
 .DS_Store
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
 
 # Bundled runtimes and downloaded archives
 /oracleJdk-27/

@@ -3,6 +3,15 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const publicPaths = new Set([
   "/",
+  "/home-1",
+  "/home-2",
+  "/home-3",
+  "/layouts",
+  "/institucional",
+  "/privacidade",
+  "/termos",
+  "/cookies",
+  "/lgpd",
   "/login",
   "/cadastro",
   "/recuperar-senha",

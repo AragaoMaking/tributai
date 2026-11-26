@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Sans, Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import CookieNotice from "@/components/cookie-notice";
 import SupportAgent from "@/components/support-agent";
 import "./globals.css";
 
@@ -8,9 +9,24 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const marketingBodyFont = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+const displayFont = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -42,10 +58,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${marketingBodyFont.variable} ${displayFont.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a className="skip-link" href="#main-content">Pular para o conteúdo</a>
         {children}
+        <CookieNotice />
         <SupportAgent />
       </body>
     </html>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import SupportAgent from "@/components/support-agent";
 import { createClient } from "@/lib/supabase/client";
 
 type IconName =
@@ -72,7 +73,7 @@ const NAV = [
   { slug: "reforma", label: "Reforma Tributária", icon: "book", phase: "Fase 9" },
   { slug: "relatorios", label: "Relatórios", icon: "report", phase: "Fase 7" },
   { slug: "alertas", label: "Alertas tributários", icon: "bell", phase: "Fase 9" },
-  { slug: "assistente", label: "Assistente IA", icon: "spark", phase: "Fase 9" },
+  { slug: "assistente", label: "Assistente IA", icon: "spark" },
   { slug: "equipe", label: "Equipe", icon: "team", phase: "Fase 2" },
   { slug: "assinatura", label: "Assinatura", icon: "card" },
   { slug: "configuracoes", label: "Configurações", icon: "settings" },
@@ -517,21 +518,35 @@ export default function Dashboard({ slug }: { slug: string }) {
       return;
     }
     setPlanName(label);
-    showToast(`Plano ${label} selecionado. Nenhuma cobrança foi realizada.`);
+    showToast(`Plano ${label} selecionado para teste. Esta ação não cobrou; pagamentos de planos são externos ao site.`);
   };
 
   const renderContent = () => {
-    if (slug !== "visao-geral" && slug !== "clientes" && slug !== "simulador" && slug !== "assinatura" && slug !== "configuracoes") {
-      const phases: Record<string, string> = { comparador: "Fase 6", reforma: "Fase 9", relatorios: "Fase 7", alertas: "Fase 9", assistente: "Fase 9", equipe: "Fase 2" };
+    if (slug !== "visao-geral" && slug !== "clientes" && slug !== "simulador" && slug !== "assinatura" && slug !== "configuracoes" && slug !== "assistente") {
+      const phases: Record<string, string> = { comparador: "Fase 6", reforma: "Fase 9", relatorios: "Fase 7", alertas: "Fase 9", equipe: "Fase 2" };
       const descriptions: Record<string, string> = {
         comparador: "Compare Simples Nacional, Lucro Presumido e Lucro Real lado a lado, sem apresentar um regime como melhor enquanto faltarem dados oficiais.",
         reforma: "Acompanhe a transição tributária de 2026 a 2033 com fontes oficiais e pendências identificadas.",
         relatorios: "Visualize, baixe e compartilhe relatórios com memória de cálculo, premissas e fundamentação.",
         alertas: "Receba novidades relevantes por empresa, mantendo eventos fiscais separados das estimativas.",
-        assistente: "Explique simulações e legislação com fontes oficiais, referências e indicação explícita de incertezas.",
         equipe: "Convide colaboradores, atribua papéis e restrinja o acesso a empresas específicas.",
       };
       return <Placeholder title={item.label} phase={phases[slug] ? `Planejado · ${phases[slug]}` : "Planejado"} description={descriptions[slug]}/>;
+    }
+
+    if (slug === "assistente") {
+      return (
+        <div className="fade-in mx-auto w-full max-w-3xl space-y-5">
+          <section className="card-shell p-6 md:p-8">
+            <span className="inline-flex rounded-full bg-[var(--green-soft)] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--green)]">Atendimento com IA</span>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight">Como posso ajudar?</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--muted)]">
+              Tire dúvidas sobre o TributAI e consulte informações tributárias gerais com referências oficiais. O assistente não faz cálculos fiscais nem substitui um contador.
+            </p>
+          </section>
+          <SupportAgent embedded />
+        </div>
+      );
     }
 
     if (slug === "clientes") {
@@ -709,7 +724,7 @@ export default function Dashboard({ slug }: { slug: string }) {
 
   if (!dataReady) {
     return (
-      <main className="grid min-h-screen place-items-center bg-[var(--background)] px-5">
+      <main id="main-content" className="grid min-h-screen place-items-center bg-[var(--background)] px-5">
         <p role="status" className="text-sm font-semibold text-[var(--muted)]">Carregando os dados protegidos do escritório...</p>
       </main>
     );
@@ -717,7 +732,7 @@ export default function Dashboard({ slug }: { slug: string }) {
 
   if (dataError) {
     return (
-      <main className="grid min-h-screen place-items-center bg-[var(--background)] px-5">
+      <main id="main-content" className="grid min-h-screen place-items-center bg-[var(--background)] px-5">
         <section className="card-shell w-full max-w-lg p-7">
           <h1 className="text-xl font-bold">Não foi possível abrir o escritório</h1>
           <p role="alert" className="mt-3 text-sm leading-6 text-[var(--muted)]">{dataError}</p>
@@ -777,7 +792,7 @@ export default function Dashboard({ slug }: { slug: string }) {
             )}
           </div>
         </header>
-        <main className="mx-auto max-w-[1320px] px-4 py-6 md:px-7 md:py-7">{renderContent()}</main>
+        <main id="main-content" className="mx-auto max-w-[1320px] px-4 py-6 md:px-7 md:py-7">{renderContent()}</main>
       </div>
 
       {modalOpen && (

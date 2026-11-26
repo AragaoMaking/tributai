@@ -6,9 +6,9 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 const plans = [
-  { id: "starter", name: "Starter", limit: "Até 10 clientes", price: "Essencial", description: "Para profissionais iniciando no digital.", featured: false },
-  { id: "profissional", name: "Profissional", limit: "Até 100 clientes", price: "Completo", description: "Para escritórios com operação em crescimento.", featured: true },
-  { id: "escritorio", name: "Escritório", limit: "Limite configurável", price: "Sob consulta", description: "Para equipes e estruturas maiores.", featured: false },
+  { id: "starter", name: "Starter", limit: "Até 10 clientes", offer: "Período de teste", description: "Para profissionais iniciando no digital.", featured: false },
+  { id: "profissional", name: "Profissional", limit: "Até 100 clientes", offer: "Consulte valores", description: "Para escritórios com operação em crescimento.", featured: true },
+  { id: "escritorio", name: "Escritório", limit: "Limite configurável", offer: "Sob consulta", description: "Para equipes e estruturas maiores.", featured: false },
 ];
 
 export default function AssinarPage() {
@@ -55,7 +55,7 @@ export default function AssinarPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--background)] px-4 py-8 md:px-8">
+    <main id="main-content" className="min-h-screen bg-[var(--background)] px-4 py-8 md:px-8">
       <div className="mx-auto max-w-[1120px]">
         <div className="flex items-center justify-between">
           <Link href="/cadastro" className="flex items-center gap-3">
@@ -68,7 +68,7 @@ export default function AssinarPage() {
         <div className="mx-auto mt-12 max-w-2xl text-center">
           <span className="inline-flex rounded-full bg-[var(--blue-soft)] px-3 py-1 text-xs font-bold text-[var(--blue)]">Fase de assinatura</span>
           <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">Escolha o plano ideal para seu escritório</h1>
-          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Os planos podem ser alterados depois. Nesta etapa, nenhuma cobrança será realizada.</p>
+          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">A seleção nesta tela salva uma opção de teste e não inicia pagamento. O site não processa pagamentos; planos pagos podem ser acertados por fora.</p>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -84,7 +84,7 @@ export default function AssinarPage() {
               </div>
               <h2 className="mt-5 text-xl font-bold">{plan.name}</h2>
               <p className="mt-1 text-sm text-[var(--muted)]">{plan.limit}</p>
-              <div className="mt-6 text-2xl font-bold">{plan.price}</div>
+              <div className="mt-6 text-2xl font-bold">{plan.offer}</div>
               <p className="mt-3 min-h-10 text-sm leading-5 text-[var(--muted)]">{plan.description}</p>
               <div className={`mt-6 h-11 rounded-xl text-center text-sm font-bold leading-[44px] ${selected === plan.id ? "bg-[var(--navy)] text-white" : "border border-[var(--border)]"}`}>
                 {selected === plan.id ? "Plano selecionado" : "Selecionar"}
@@ -98,7 +98,7 @@ export default function AssinarPage() {
           <button onClick={startPlan} disabled={loading} className="h-12 w-full rounded-xl bg-[var(--navy)] text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70">
             {loading ? "Preparando ambiente..." : "Começar com o plano selecionado"}
           </button>
-          <p className="mt-3 text-center text-xs text-[var(--muted)]">Período de teste e cobrança real serão configurados na fase de pagamentos.</p>
+          <p className="mt-3 text-center text-xs leading-5 text-[var(--muted)]">Antes de pagar um plano externo, solicite por escrito valores, forma de pagamento e condições de cancelamento/reembolso. Não há uma política formal publicada no site neste momento.</p>
         </div>
       </div>
     </main>

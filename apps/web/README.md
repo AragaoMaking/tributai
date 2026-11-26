@@ -15,9 +15,10 @@ Crie `apps/web/.env.local` com a URL local e a chave **anon/publishable** mostra
 ```dotenv
 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<valor ANON_KEY do Supabase local>
+GEMINI_API_KEY=<chave do Google AI Studio>
 ```
 
-Não coloque `SECRET_KEY`, `SERVICE_ROLE_KEY` ou `JWT_SECRET` no frontend. O `.env.local` é ignorado pelo Git.
+Crie a chave em <https://aistudio.google.com/apikey>. `GEMINI_API_KEY` é opcional para o restante do site, mas necessária para o chat responder. Mantenha-a somente no servidor: não use o prefixo `NEXT_PUBLIC_` nem compartilhe a chave no chat ou no repositório. O `.env.local` é ignorado pelo Git. Não coloque `SECRET_KEY`, `SERVICE_ROLE_KEY` ou `JWT_SECRET` no frontend.
 
 Depois, em `apps/web`:
 
@@ -28,7 +29,7 @@ npm.cmd run dev
 
 Abra <http://localhost:3000>. O Supabase Studio fica em <http://localhost:54323>; e-mails locais de cadastro/recuperação aparecem no Mailpit em <http://localhost:54324>.
 
-O cadastro cria perfil, escritório, associação de administrador e uma assinatura de teste Starter no mesmo fluxo. O usuário pode escolher outro plano de teste, sem cobrança. O acesso às áreas privadas é protegido por sessão; as políticas RLS continuam sendo a proteção dos dados.
+O cadastro cria perfil, escritório, associação de administrador e uma assinatura de teste Starter no mesmo fluxo. A seleção de planos na aplicação não inicia pagamento: não há checkout integrado. Pagamentos de planos podem ocorrer fora do site; valores e condições devem ser confirmados por escrito antes do pagamento. O acesso às áreas privadas é protegido por sessão; as políticas RLS continuam sendo a proteção dos dados.
 
 ## Verificações
 
@@ -102,6 +103,7 @@ Get-Content ..\..\supabase\tests\rls_isolation.sql -Raw | docker exec -i supabas
 
 - As simulações são persistidas como entradas com pendências; nenhum tributo é calculado ou apresentado como oficial.
 - Os motores Java/Go ainda não estão conectados ao fluxo da aplicação.
-- Comparador, relatórios, portal do empresário, equipe e assistente permanecem identificados como módulos planejados.
-- Não há gateway de pagamento nem cobrança real.
+- Comparador, relatórios, portal do empresário e equipe permanecem identificados como módulos planejados.
+- Não há gateway ou checkout no site; pagamentos externos podem existir e não são processados pela aplicação.
+- As páginas de privacidade, termos, cookies e solicitações sobre dados estão disponíveis. CNPJ e endereço comercial permanecem pendentes; ainda não há política formal de cancelamento/reembolso publicada. Solicite as condições por escrito antes de pagar.
 - A configuração local não substitui configuração de produção, SMTP de envio, revisão final das políticas/RLS, testes de segurança e operação/backup do banco.

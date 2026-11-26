@@ -63,7 +63,7 @@ export default function RedefinirSenhaPage() {
   }
 
   return (
-    <main className="grid min-h-screen place-items-center bg-[var(--background)] px-5">
+    <main id="main-content" className="grid min-h-screen place-items-center bg-[var(--background)] px-5">
       <div className="w-full max-w-[420px] card-shell p-7">
         <Link href="/login" className="mb-8 flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--navy)] text-lg font-black text-white">T<span className="text-[#62d6aa]">A</span></span>

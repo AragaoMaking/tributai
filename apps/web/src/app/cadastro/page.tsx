@@ -67,7 +67,7 @@ export default function CadastroPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--background)]">
+    <main id="main-content" className="min-h-screen bg-[var(--background)]">
       <div className="grid min-h-screen lg:grid-cols-[1fr_470px]">
         <section className="relative hidden overflow-hidden bg-[var(--navy)] p-12 text-white lg:flex lg:flex-col lg:justify-between">
           <div className="absolute -left-28 -top-28 h-96 w-96 rounded-full border-[70px] border-white/[0.035]" />
@@ -126,8 +126,11 @@ export default function CadastroPage() {
                 <input name="password" type="password" autoComplete="new-password" required minLength={8} className="mt-2 h-12 w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 text-sm text-[var(--foreground)] outline-none transition focus:border-[var(--blue)] focus:ring-4 focus:ring-[var(--blue-soft)]" placeholder="Mínimo de 8 caracteres" />
               </label>
               <label className="flex items-start gap-3 text-xs leading-5 text-[var(--muted)]">
-                <input name="terms" type="checkbox" className="mt-1 h-4 w-4 accent-[var(--blue)]" />
-                <span>Li e aceito os termos de uso e a política de privacidade.</span>
+                <input name="terms" type="checkbox" required className="mt-1 h-4 w-4 accent-[var(--blue)]" />
+                <span>
+                  Li e aceito os <Link href="/termos" className="font-semibold text-[var(--blue)] underline">termos de uso</Link> e a{" "}
+                  <Link href="/privacidade" className="font-semibold text-[var(--blue)] underline">política de privacidade</Link>.
+                </span>
               </label>
 
               {error && <div role="alert" className="rounded-xl bg-[var(--red-soft)] px-4 py-3 text-sm font-semibold text-[var(--red)]">{error}</div>}

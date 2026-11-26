@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { SUPPORT_EMAIL } from "@/lib/site";
 
 type Citation = {
   title: string;
@@ -13,9 +16,8 @@ type ChatMessage = {
   citations?: Citation[];
 };
 
-const SUPPORT_EMAIL = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "miguel.norton@icloud.com";
-
-export default function SupportAgent() {
+export default function SupportAgent({ embedded = false }: { embedded?: boolean }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -30,6 +32,8 @@ export default function SupportAgent() {
   useEffect(() => {
     endOfMessages.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, open]);
+
+  if (!embedded && pathname === "/assistente") return null;
 
   async function sendMessage(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -70,28 +74,28 @@ export default function SupportAgent() {
     }
   }
 
-  return (
-    <div className="fixed bottom-4 right-4 z-[80] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
-      {open && (
-        <section
-          aria-label="Atendimento TributAI"
-          className="flex h-[min(34rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-[#dfe6ef] bg-white text-[#10213f] shadow-2xl"
-        >
+  const panel = (
+    <section
+      aria-label="Atendimento TributAI"
+      className={`flex ${embedded ? "min-h-[32rem] w-full" : "h-[min(34rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-2rem))]"} flex-col overflow-hidden rounded-2xl border border-[#dfe6ef] bg-white text-[#10213f] shadow-2xl`}
+    >
           <header className="flex items-center justify-between bg-[#0b1f3a] px-4 py-3 text-white">
             <div>
               <h2 className="text-sm font-bold">Atendimento TributAI</h2>
               <p className="mt-0.5 text-xs text-[#c5d2e5]">Assistente virtual</p>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="rounded-lg p-2 text-white/80 transition hover:bg-white/10 hover:text-white"
-              aria-label="Fechar atendimento"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path d="m6 6 12 12M18 6 6 18" />
-              </svg>
-            </button>
+            {!embedded && (
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="rounded-lg p-2 text-white/80 transition hover:bg-white/10 hover:text-white"
+                aria-label="Fechar atendimento"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="m6 6 12 12M18 6 6 18" />
+                </svg>
+              </button>
+            )}
           </header>
 
           <div className="scrollbar-subtle flex-1 space-y-3 overflow-y-auto bg-[#f7f9fc] p-3" aria-live="polite">
@@ -127,15 +131,16 @@ export default function SupportAgent() {
               </div>
             ))}
             {sending && (
-              <p className="w-fit rounded-2xl border border-[#e4e9f0] bg-white px-3 py-2 text-xs text-[#687791]">
+              <p className="w-fit rounded-2xl border border-[#e4e9f0] bg-white px-3 py-2 text-xs text-[#596981]">
                 Preparando resposta…
               </p>
             )}
             <div ref={endOfMessages} />
           </div>
 
-          <p className="border-t border-[#e4e9f0] bg-white px-3 pt-2 text-[11px] leading-4 text-[#687791]">
-            As mensagens são processadas pelo Google Gemini. No plano gratuito, elas podem ser usadas para melhorar os serviços do Google. Não envie dados pessoais ou de clientes.
+          <p className="border-t border-[#e4e9f0] bg-white px-3 pt-2 text-[11px] leading-4 text-[#596981]">
+            As mensagens são processadas pelo Google Gemini. No plano gratuito, elas podem ser usadas para melhorar os serviços do Google. Não envie dados pessoais ou de clientes.{" "}
+            <Link href="/privacidade" className="font-semibold underline">Privacidade</Link>
           </p>
           <form onSubmit={sendMessage} className="flex gap-2 bg-white p-3">
             <label className="sr-only" htmlFor="support-message">Escreva sua mensagem</label>
@@ -166,8 +171,16 @@ export default function SupportAgent() {
           >
             Falar com atendimento humano
           </a>
-        </section>
-      )}
+    </section>
+  );
+
+  if (embedded) {
+    return <div className="w-full">{panel}</div>;
+  }
+
+  return (
+    <div className="fixed bottom-4 right-4 z-[80] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+      {open && panel}
 
       <button
         type="button"

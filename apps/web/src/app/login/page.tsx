@@ -43,7 +43,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="grid min-h-screen bg-[var(--background)] lg:grid-cols-[1fr_470px]">
+    <main id="main-content" className="grid min-h-screen bg-[var(--background)] lg:grid-cols-[1fr_470px]">
       <section className="relative hidden overflow-hidden bg-[var(--navy)] p-12 text-white lg:flex lg:flex-col lg:justify-between">
         <div className="absolute -left-28 -top-28 h-96 w-96 rounded-full border-[70px] border-white/[0.035]" />
         <Link href="/cadastro" className="relative z-10 flex items-center gap-3">

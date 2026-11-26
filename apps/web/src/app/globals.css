@@ -54,11 +54,15 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
@@ -97,8 +101,8 @@ a {
 .card-shell {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: 0 5px 18px rgba(15, 35, 70, 0.035);
+  border-radius: 20px;
+  box-shadow: 0 8px 26px rgba(15, 35, 70, 0.045);
 }
 
 .interactive-card {
@@ -109,6 +113,148 @@ a {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--blue) 35%, var(--border));
   box-shadow: 0 12px 28px rgba(15, 35, 70, 0.08);
+}
+
+.landing-page {
+  isolation: isolate;
+}
+
+.landing-header {
+  position: relative;
+  z-index: 20;
+}
+
+.brand-mark {
+  box-shadow: 0 8px 18px rgba(11, 31, 58, 0.16);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.brand-mark:hover {
+  transform: rotate(-5deg) translateY(-1px);
+  box-shadow: 0 12px 24px rgba(11, 31, 58, 0.2);
+}
+
+.hero-section {
+  isolation: isolate;
+}
+
+.hero-glow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.hero-glow-one {
+  top: 8%;
+  right: -9rem;
+  width: 25rem;
+  height: 25rem;
+  background: radial-gradient(circle, rgba(98, 214, 170, 0.2), rgba(98, 214, 170, 0) 68%);
+  animation: glow-drift 12s ease-in-out infinite alternate;
+}
+
+.hero-glow-two {
+  bottom: -7rem;
+  left: 28%;
+  width: 23rem;
+  height: 23rem;
+  background: radial-gradient(circle, rgba(87, 139, 232, 0.12), rgba(87, 139, 232, 0) 68%);
+  animation: glow-drift 15s ease-in-out infinite alternate-reverse;
+}
+
+.hero-title-accent {
+  color: #168363;
+  background: linear-gradient(100deg, #168363 4%, #25a17b 48%, #2864d8 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-copy {
+  animation: fade-in 600ms ease-out both;
+}
+
+.hero-showcase {
+  animation: showcase-arrive 750ms 120ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+  transform-origin: center;
+}
+
+.showcase-shell {
+  position: relative;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.showcase-shell:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 34px 100px -38px rgba(11, 31, 58, 0.42);
+}
+
+.preview-enter {
+  animation: preview-enter 250ms ease-out both;
+}
+
+.preview-row {
+  animation: fade-in 300ms ease-out both;
+}
+
+.landing-section {
+  scroll-margin-top: 1rem;
+}
+
+.feature-card {
+  box-shadow: 0 8px 24px rgba(15, 35, 70, 0.025);
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: #cfe2da;
+  box-shadow: 0 18px 36px rgba(15, 35, 70, 0.08);
+}
+
+.feature-icon {
+  transition: transform 220ms ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.transparency-panel {
+  box-shadow: 0 24px 60px -34px rgba(11, 31, 58, 0.6);
+}
+
+.transparency-glow {
+  position: absolute;
+  top: -13rem;
+  right: -5rem;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(98, 214, 170, 0.17), transparent 70%);
+  pointer-events: none;
+}
+
+.faq-item {
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.faq-item:hover,
+.faq-item[open] {
+  border-color: #cfe2da;
+  background: #fff;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
 }
 
 .fade-in {
@@ -126,6 +272,37 @@ a {
   }
 }
 
+@keyframes showcase-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes preview-enter {
+  from {
+    opacity: 0.45;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-drift {
+  from {
+    transform: translate3d(-8px, -6px, 0) scale(0.98);
+  }
+  to {
+    transform: translate3d(12px, 10px, 0) scale(1.04);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -133,5 +310,13 @@ a {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .hero-glow,
+  .brand-mark,
+  .showcase-shell,
+  .feature-card,
+  .feature-icon {
+    transform: none !important;
   }
 }
